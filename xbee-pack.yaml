@@ -1,1 +1,21 @@
 schema-version: 1.0
+type: builder
+
+
+var:
+  version: 74.2
+
+
+provision:
+  - url:
+      from: https://github.com/unicode-org/icu/releases/download/release-74-2/icu4c-74_2-src.tgz
+      todir: "{{ .xbee.src }}"
+
+
+build:
+  - shell:
+      cmds:
+        - ./configure --prefix=/usr
+        - make
+        - make install DESTDIR={{ .xbee.out }}
+      directory:  "{{ .xbee.src }}/icu/source"
